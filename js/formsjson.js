@@ -1,5 +1,4 @@
-function GetFormJSON() {
-  return '[
+Forms = [
   {
     "Forms": [],
     "EntityLogicalName": "opportunitycompetitors"
@@ -98462,6 +98461,4 @@ function GetFormJSON() {
     "Forms": [],
     "EntityLogicalName": "servicecontractcontacts"
   }
-]';
-  
-}
+];
