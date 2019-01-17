@@ -1,3 +1,5 @@
-const JSTB = `BASE64 Data goes here...`;
+const data = `BASE64 Data goes here...`;
 
-export default JSTB;
+export {
+  data 
+};
