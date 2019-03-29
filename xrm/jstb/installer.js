@@ -1,4 +1,4 @@
-import {version,releasedOn} from './version.js';
+import {version, solutionVersion,releasedOn} from './version.js';
 
 const WEBAPIURL = getWebApiUrl();
 
@@ -13,7 +13,7 @@ async function Install () {
 
 
   if(installedVersion) {
-    const ok = await confirmDialog(`Replace installed Version ${installedVersion} with version ${version}?`);
+    const ok = await confirmDialog(`Replace installed Version ${installedVersion} with version ${solutionVersion} (JSToolbox Version ${version})?`);
 
     if(!ok) return;
   }
