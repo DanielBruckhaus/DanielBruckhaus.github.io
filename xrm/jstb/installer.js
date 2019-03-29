@@ -1,4 +1,5 @@
 import {version, solutionVersion,releasedOn} from './version.js';
+import data from './data.js';
 
 const WEBAPIURL = getWebApiUrl();
 
@@ -72,11 +73,11 @@ async function importSolution ({CustomizationFile, ImportJobId = null, Overwrite
         break;
       }
     }
-
-    Xrm.Utility.closeProgressIndicator();
   }
   catch(ex) {
     console.error(ex);
+  }
+  finally {
     Xrm.Utility.closeProgressIndicator();
   }
 
