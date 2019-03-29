@@ -26,11 +26,21 @@ async function Install () {
 
   debugger;
 
-  await importSolution({
+  const success = await importSolution({
     CustomizationFile: data
   });
 
-  alert("DONE");
+  if(success) {
+    const ok = await confirmDialog(`Installation complete. Open JSToolbox now?`);
+    if(ok) {
+      const cUrl = getClientUrl();
+      const url = `${cUrl}/WebResources/orb_/JSToolbox/index.html`;
+      window.open(url,'_blank','noopener');
+    }
+  }
+  else {
+    errorDialog(`Installation Failed`);
+  }
 }
 
 
@@ -80,9 +90,8 @@ async function importSolution ({CustomizationFile, ImportJobId = null, Overwrite
   finally {
     Xrm.Utility.closeProgressIndicator();
   }
-
-
-  }
+  return success;
+}
 
 async function webapiRetrieve(collection, id, fields = []) {
   let url = `${collection}(${id})`;
@@ -121,10 +130,15 @@ async function webapiExecuteCustomAction(name, data) {
   return resp;
 }
 
-async function confirmDialog(msg) {
+async function confirmDialog(msg, {
+  title,
+  subtitle,
+  cancelButtonLabel = "Cancel",
+  confirmButtonLabel = "Ok"
+} = {}) {
   return new Promise((res,rej) => {
     if(Xrm && Xrm.Navigation && Xrm.Navigation.openConfirmDialog) {
-      Xrm.Navigation.openConfirmDialog({title: msg})
+      Xrm.Navigation.openConfirmDialog({text: msg, title, subtitle, confirmButtonLabel, cancelButtonLabel})
       .then(result => {
         if(result && result.confirmed) {
           res(true);
@@ -137,6 +151,21 @@ async function confirmDialog(msg) {
     else {
       const ok = confirm(msg);
       res(ok);
+    }
+  });
+}
+
+async function errorDialog(msg) {
+  return new Promise((res,rej) => {
+    if(Xrm && Xrm.Navigation && Xrm.Navigation.openAlertDialog) {
+      Xrm.Navigation.openAlertDialog({text: msg})
+      .then(result => {
+        res();
+      }, rej);
+    }
+    else {
+      alert(msg);
+      res();
     }
   });
 }
