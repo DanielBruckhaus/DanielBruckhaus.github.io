@@ -56,7 +56,7 @@ async function importSolution ({CustomizationFile, ImportJobId = null, Overwrite
 
   try {
     while(true) {
-      await sleep(500);
+      await sleep(100);
 
       const {progress, startedon, completedon} = await webapiRetrieve("importjobs", ImportJobId, ["progress", "startedon", "completedon"]);
 
