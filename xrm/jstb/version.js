@@ -1,6 +1,6 @@
-const version = "1.1.2";
-const releasedOn = "2019-10-22T06:48:46.146Z";
-const solutionVersion = "8.2.20191022";
+const version = "1.1.3";
+const solutionVersion = "8.2.20191125";
+const releasedOn = "2019-11-25T10:20:32.044Z";
 
 export {
   version,
