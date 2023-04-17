@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>WakeLock</title>
+  <style>
+    html,body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #lockme {
+    padding: 2rem;
+    font-size: 3em;
+  }
+  </style>
+</head>
+<body>
+  <button id="lockme">Request Lock</button>
+  
+  <script>
+    const btn = document.getElementById("lockme");
+
+    btn.addEventListener("click", requestLock);
+
+    async function requestLock() {
+      const lock = await navigator.wakeLock.request("screen");
+
+      lock.addEventListener("release", onReleased);
+
+      btn.textContent = "Locked";
+      btn.disabled = true;
+    }
+
+    function onReleased() {
+      btn.textContent = "Lock released";
+      btn.disabled = false;
+    }
+  </script>
+</body>
+</html>
