@@ -32,6 +32,11 @@
 
     btn.addEventListener("click", requestLock);
 
+    const params = new URLSearchParams(location.search);
+    if(params.get("lock") === "true") {
+      requestLock();
+    }
+    
     async function requestLock() {
       const lock = await navigator.wakeLock.request("screen");
 
